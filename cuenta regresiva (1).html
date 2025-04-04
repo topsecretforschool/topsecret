@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuenta Regresiva Lunes 7</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 3rem;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #f00;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Iniciando protocolo...</h1>
+  <div id="countdown">Cargando...</div>
+  <div id="message">¡Cuenta regresiva completada!</div>
+
+  <script>
+    // Cuenta regresiva hasta el lunes 7 de abril de 2025 a las 10:15 (hora Chile)
+    const targetDate = new Date("2025-04-07T13:15:00Z").getTime(); // 10:15 Chile = 13:15 UTC
+
+    const countdown = document.getElementById("countdown");
+    const message = document.getElementById("message");
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        countdown.innerHTML = "0s";
+        message.style.display = "block";
+        clearInterval(interval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
